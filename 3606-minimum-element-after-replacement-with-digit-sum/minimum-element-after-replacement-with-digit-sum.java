@@ -1,29 +1,24 @@
 class Solution {
     public int minElement(int[] nums) {
-        // Initialize minOverall to the largest possible integer value
-        // to ensure any digit sum found will be smaller.
-        int minOverall = Integer.MAX_VALUE;
+        int minDigitSum = Integer.MAX_VALUE; // Initialize minimum digit sum to a very large value
 
-        // Iterate through each number in the input array.
         for (int num : nums) {
-            int currentNum = num; // Use a temporary variable to avoid modifying the loop variable directly
-            int currentDigitSum = 0; // Initialize sum for the current number
+            int currentDigitSum = 0;
+            int temp = num; // Use a temporary variable to avoid modifying the original number during digit sum calculation
 
-            // Calculate the sum of digits for the current number.
-            // This loop continues as long as currentNum has digits remaining.
-            while (currentNum > 0) {
-                currentDigitSum += currentNum % 10; // Add the last digit to the sum
-                currentNum /= 10; // Remove the last digit
+            // Calculate the sum of digits for the current number
+            while (temp > 0) {
+                currentDigitSum += temp % 10; // Add the last digit
+                temp /= 10; // Remove the last digit
             }
-            
-            // After calculating the digit sum for the current number,
-            // update minOverall if this sum is smaller.
-            minOverall = Math.min(minOverall, currentDigitSum);
+
+            // Update the minimum digit sum if the current digit sum is smaller
+            minDigitSum = Math.min(minDigitSum, currentDigitSum);
         }
 
-        // Return the minimum digit sum found across all numbers.
-        return minOverall;
+        return minDigitSum; // Return the overall minimum digit sum found
     }
 }
-
-// Time complexity: O(N * log(max_val)), where N
+// Time Complexity: O(N * log10(M)), where N is the length of nums and M is the maximum value in nums.
+// The log10(M) factor comes from calculating the sum of digits for each number.
+// Space Complexity: O(1), as we only use a few extra variables.
